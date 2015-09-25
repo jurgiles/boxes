@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.box_check_update = false
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y gcc-4.7-multilib
+    touch /var/notes
+    chown vagrant /var/notes
+  SHELL
+
+  config.vm.provider "virtualbox"
+  config.vm.provider "vmware_fusion"
+end
